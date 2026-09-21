@@ -1,0 +1,51 @@
+:root { font-family: Arial, sans-serif; color: #292c24; background: #f7f6f1; --verde: #36583b; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+button, input, textarea, select { border-radius: 8px; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #c47b25; outline-offset: 3px; }
+.cabecera { display: flex; justify-content: space-between; align-items: center; padding: 24px max(5%, calc((100% - 1180px) / 2)); background: white; border-bottom: 1px solid #e5e5dc; gap: 20px; }
+.marca { color: var(--verde); font: bold 30px Georgia, serif; text-decoration: none; }
+.marca span { display: block; font: 9px Arial, sans-serif; letter-spacing: 2px; margin-top: 6px; }
+nav { display: flex; gap: 8px; }
+nav button, .secundario-boton { padding: 10px 18px; background: transparent; border: 1px solid #d6dccf; color: var(--verde); }
+nav .activo { background: var(--verde); color: white; border-color: var(--verde); }
+main { max-width: 1180px; margin: auto; padding: 0 24px 50px; min-height: 80vh; }
+.introduccion { padding: 45px 0 30px; }
+.etiqueta { color: #6b783e; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+h1 { font: bold clamp(30px, 5vw, 46px) Georgia, serif; margin: 14px 0; }
+.introduccion > p:last-of-type, .secundario { color: #6b7065; font-size: 14px; line-height: 1.6; }
+.distribucion { display: grid; grid-template-columns: 1fr 340px; gap: 30px; align-items: start; }
+.menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.plato, .carrito, .pedido { background: white; border: 1px solid #e2e4da; border-radius: 14px; padding: 24px; }
+.plato { display: flex; flex-direction: column; }
+.plato .numero { color: #71805a; font: italic 25px Georgia, serif; }
+h2 { font: bold 24px Georgia, serif; margin: 0 0 10px; }
+.plato h2 { font-size: 22px; margin-top: 22px; }
+.plato p { color: #6b7065; font-size: 14px; line-height: 1.6; flex-grow: 1; }
+.pie-plato, .total, .encabezado-pedido { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.pie-plato { margin-top: 15px; }
+.pie-plato button { color: var(--verde); background: #edf1e7; border: 0; padding: 10px 14px; }
+.carrito { border-top: 4px solid var(--verde); }
+ul { padding: 0; list-style: none; }
+#carrito li { border-top: 1px solid #eceee7; padding: 14px 0; font-size: 14px; }
+.cantidad { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.cantidad button { background: #f4f5ef; border: 1px solid #d9dfd1; min-width: 32px; min-height: 32px; color: var(--verde); }
+.total { padding: 20px 0; border-top: 1px solid #ddd; }
+label { display: block; font-size: 13px; margin: 16px 0 8px; }
+input, textarea { width: 100%; padding: 12px; border: 1px solid #d8dcd2; background: #fdfdfb; }
+textarea { resize: vertical; }
+.principal { width: 100%; padding: 14px; border: 0; background: var(--verde); color: white; margin-top: 20px; }
+#mensaje { padding: 16px; margin-top: 24px; background: #e6efdd; border-radius: 8px; overflow-wrap: anywhere; }
+#mensaje.error { background: #fce4dc; color: #822d19; }
+.lista-pedidos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.pedido { overflow-wrap: anywhere; }
+.pedido li { margin: 10px 0; }
+.pedido select { width: 100%; padding: 10px; border: 1px solid #d8dcd2; background: white; }
+.estado { background: #edf1e7; color: var(--verde); padding: 7px 10px; border-radius: 20px; font-size: 12px; }
+footer { text-align: center; padding: 24px; color: #73796c; border-top: 1px solid #e2e4da; font-size: 12px; }
+@media (max-width: 850px) { .distribucion { grid-template-columns: 1fr; } }
+@media (max-width: 540px) { .menu, .lista-pedidos { grid-template-columns: 1fr; } main { padding-inline: 16px; } .cabecera { padding: 20px 16px; } .marca { font-size: 25px; } .marca span { font-size: 7px; } nav button { padding: 10px; } }

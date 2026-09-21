@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Mesa · Pedidos de comida</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <a class="marca" href="/">La Mesa<span>COMIDA HECHA CON GANAS</span></a>
+    <nav aria-label="Navegación principal">
+      <button id="ver-menu" class="activo" aria-pressed="true">Menú</button>
+      <button id="ver-pedidos" aria-pressed="false">Pedidos</button>
+    </nav>
+  </header>
+  <main>
+    <div id="mensaje" role="status" aria-live="polite" hidden></div>
+    <section id="vista-menu">
+      <div class="introduccion"><p class="etiqueta">FRESCO, SENCILLO Y DELICIOSO</p><h1>¿Qué se te antoja hoy?</h1><p>Elige tus favoritos. Nosotros nos encargamos de prepararlos.</p></div>
+      <div class="distribucion">
+        <section aria-label="Platos disponibles"><div id="menu" class="menu"><p>Cargando menú…</p></div></section>
+        <aside class="carrito">
+          <h2>Tu pedido</h2><p class="secundario">Una buena comida empieza aquí.</p>
+          <ul id="carrito"></ul>
+          <div class="total"><span>Total</span><strong id="total">Q 0.00</strong></div>
+          <form id="form-pedido">
+            <label for="cliente">Tu nombre</label><input id="cliente" name="cliente" maxlength="100" required placeholder="Nombre de quien recibe">
+            <label for="notas">Indicaciones <span class="secundario">(opcional)</span></label><textarea id="notas" name="notas" maxlength="500" rows="3" placeholder="Por ejemplo: sin cebolla"></textarea>
+            <button id="confirmar" class="principal" type="submit" disabled>Confirmar pedido</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+    <section id="vista-pedidos" hidden>
+      <div class="introduccion"><p class="etiqueta">EN LA COCINA</p><h1>Pedidos recibidos</h1><p>Consulta los detalles y actualiza el estado de cada pedido.</p><button id="actualizar" class="secundario-boton">Actualizar lista</button></div>
+      <div id="pedidos" class="lista-pedidos"></div>
+    </section>
+  </main>
+  <footer>La Mesa · Proyecto académico de pedidos de comida</footer>
+</body>
+</html>
