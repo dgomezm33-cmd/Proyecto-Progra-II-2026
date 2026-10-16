@@ -19,6 +19,7 @@ main { max-width: 1180px; margin: auto; padding: 0 24px 50px; min-height: 80vh; 
 h1 { font: bold clamp(30px, 5vw, 46px) Georgia, serif; margin: 14px 0; }
 .introduccion > p:last-of-type, .secundario { color: #6b7065; font-size: 14px; line-height: 1.6; }
 .distribucion { display: grid; grid-template-columns: 1fr 340px; gap: 30px; align-items: start; }
+.distribucion > *, .menu > *, .carrito { min-width: 0; }
 .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .plato, .carrito, .pedido { background: white; border: 1px solid #e2e4da; border-radius: 14px; padding: 24px; }
 .plato { display: flex; flex-direction: column; }
@@ -49,3 +50,4 @@ textarea { resize: vertical; }
 footer { text-align: center; padding: 24px; color: #73796c; border-top: 1px solid #e2e4da; font-size: 12px; }
 @media (max-width: 850px) { .distribucion { grid-template-columns: 1fr; } }
 @media (max-width: 540px) { .menu, .lista-pedidos { grid-template-columns: 1fr; } main { padding-inline: 16px; } .cabecera { padding: 20px 16px; } .marca { font-size: 25px; } .marca span { font-size: 7px; } nav button { padding: 10px; } }
+@media (max-width: 380px) { .cabecera { align-items: stretch; flex-direction: column; } nav { width: 100%; } nav button { flex: 1; } }

@@ -5,7 +5,8 @@
   "description": "Sistema académico de pedidos de comida",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "node --watch src/app.js"
+    "dev": "node --watch src/app.js",
+    "test": "node --test"
   },
   "dependencies": {
     "dotenv": "^17.0.0",

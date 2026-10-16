@@ -1,0 +1,15 @@
+{
+  "name": "pedidos-comida-fase-3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fase 3: frontend y registro de pedidos",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.0"
+  }
+}

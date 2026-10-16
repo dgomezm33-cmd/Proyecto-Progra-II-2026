@@ -20,4 +20,10 @@ app.use((error, req, res, next) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Servidor disponible en http://localhost:${port}`));
+
+// Evita abrir un puerto al importar la aplicación desde las pruebas.
+if (require.main === module) {
+  app.listen(port, () => console.log(`Servidor disponible en http://localhost:${port}`));
+}
+
+module.exports = app;

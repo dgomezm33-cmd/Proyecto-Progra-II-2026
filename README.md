@@ -21,6 +21,10 @@ Es una demostración local sin cuentas, pagos ni entregas a domicilio. La vista 
 5. Ejecutar `npm run dev` para desarrollo o `npm start` para ejecución normal.
 6. Abrir <http://localhost:3000>. Express sirve tanto la página como la API.
 
+Las pruebas automatizadas de la interfaz HTTP y de las validaciones se ejecutan con
+`npm test`. No necesitan una instancia de MySQL porque sustituyen la capa de acceso
+a datos por respuestas controladas.
+
 Si no carga el menú, comprobar que MySQL esté iniciado, que el script se haya ejecutado y que `.env` tenga las credenciales correctas. Reiniciar Node después de modificar `.env`. El script puede repetirse sin borrar pedidos ni duplicar los platos iniciales.
 
 ## Organización

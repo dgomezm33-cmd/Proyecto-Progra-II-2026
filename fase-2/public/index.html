@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Mesa · Menú y carrito</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <a class="marca" href="/">La Mesa<span>COMIDA HECHA CON GANAS</span></a>
+    <span class="fase">Fase 2 · API y carrito</span>
+  </header>
+  <main>
+    <div id="mensaje" role="alert" hidden></div>
+    <section class="presentacion">
+      <p class="etiqueta">NUESTRO MENÚ</p>
+      <h1>Elige tus favoritos</h1>
+      <p>El catálogo ahora se obtiene desde la API REST.</p>
+    </section>
+    <div class="distribucion">
+      <section aria-labelledby="titulo-platos">
+        <div class="barra">
+          <h2 id="titulo-platos">Platos disponibles</h2>
+          <input id="busqueda" type="search" placeholder="Buscar plato" aria-label="Buscar plato">
+        </div>
+        <div id="menu" class="menu"><p>Cargando menú…</p></div>
+      </section>
+      <aside class="carrito">
+        <h2>Tu carrito</h2>
+        <p class="secundario">Se conserva mientras esta página permanezca abierta.</p>
+        <ul id="carrito"></ul>
+        <div class="total"><span>Total</span><strong id="total">Q 0.00</strong></div>
+        <button id="vaciar" type="button" disabled>Vaciar carrito</button>
+      </aside>
+    </div>
+  </main>
+  <footer>La Mesa · Proyecto académico</footer>
+</body>
+</html>

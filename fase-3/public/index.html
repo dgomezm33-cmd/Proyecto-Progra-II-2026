@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Mesa · Registrar pedido</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <a class="marca" href="/">La Mesa<span>COMIDA HECHA CON GANAS</span></a>
+    <span class="fase">Fase 3 · Pedidos</span>
+  </header>
+  <main>
+    <div id="mensaje" role="status" aria-live="polite" hidden></div>
+    <section class="presentacion">
+      <p class="etiqueta">ORDENA EN LÍNEA</p>
+      <h1>¿Qué se te antoja hoy?</h1>
+      <p>Arma tu pedido y envíalo a la cocina.</p>
+    </section>
+    <div class="distribucion">
+      <section aria-label="Platos disponibles">
+        <div class="barra"><h2>Menú</h2><input id="busqueda" type="search" placeholder="Buscar plato" aria-label="Buscar plato"></div>
+        <div id="menu" class="menu"><p>Cargando menú…</p></div>
+      </section>
+      <aside class="carrito">
+        <h2>Tu pedido</h2>
+        <p class="secundario">Tu carrito se conserva aunque recargues la página.</p>
+        <ul id="carrito"></ul>
+        <div class="total"><span>Total</span><strong id="total">Q 0.00</strong></div>
+        <form id="form-pedido">
+          <label for="cliente">Nombre</label>
+          <input id="cliente" name="cliente" maxlength="100" required placeholder="Nombre de quien recibe">
+          <label for="notas">Indicaciones <span class="secundario">(opcional)</span></label>
+          <textarea id="notas" name="notas" maxlength="500" rows="3" placeholder="Ejemplo: sin cebolla"></textarea>
+          <button id="confirmar" class="principal" type="submit" disabled>Confirmar pedido</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+  <footer>La Mesa · Proyecto académico</footer>
+</body>
+</html>
