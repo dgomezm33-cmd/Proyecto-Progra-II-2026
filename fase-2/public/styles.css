@@ -23,6 +23,7 @@ input { width: min(260px, 100%); padding: 11px; border: 1px solid #d8dcd2; backg
 .menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .plato, .carrito { min-width: 0; padding: 24px; background: #fff; border: 1px solid #e2e4da; border-radius: 14px; }
 .plato { display: flex; flex-direction: column; }
+.imagen-plato { width: calc(100% + 48px); height: 190px; margin: -24px -24px 20px; object-fit: cover; border-radius: 14px 14px 0 0; }
 .plato p { flex-grow: 1; color: #6b7065; font-size: 14px; line-height: 1.6; }
 .categoria { color: #71805a; font-size: 12px; font-weight: bold; }
 .pie, .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; }

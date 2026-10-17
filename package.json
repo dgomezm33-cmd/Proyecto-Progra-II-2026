@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
+    "migrate": "node database/migrate-admin.js",
+    "reset:demo": "node database/backup-and-reset.js",
+    "restore:backup": "node database/restore-backup.js",
     "test": "node --test"
   },
   "dependencies": {

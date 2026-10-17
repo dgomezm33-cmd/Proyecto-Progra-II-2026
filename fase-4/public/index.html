@@ -45,13 +45,81 @@
       </div>
     </section>
     <section id="vista-pedidos" hidden>
-      <div class="presentacion">
-        <p class="etiqueta">EN LA COCINA</p>
-        <h1>Pedidos recibidos</h1>
-        <p>Consulta los detalles y actualiza el estado de cada pedido.</p>
-        <button id="actualizar" class="secundario-boton" type="button">Actualizar lista</button>
+      <div id="acceso-admin" class="acceso-admin">
+        <form id="form-login" class="tarjeta-acceso">
+          <p class="etiqueta">ÁREA ADMINISTRATIVA</p>
+          <h1>Iniciar sesión</h1>
+          <p class="secundario">Ingresa para consultar pedidos y administrar el menú.</p>
+          <label for="usuario">Usuario</label>
+          <input id="usuario" name="usuario" autocomplete="username" required>
+          <label for="contrasena">Contraseña</label>
+          <input id="contrasena" name="contrasena" type="password" autocomplete="current-password" required>
+          <button id="entrar" class="principal" type="submit">Entrar</button>
+          <p id="error-login" class="error-texto" role="alert" hidden></p>
+        </form>
       </div>
-      <div id="pedidos" class="lista-pedidos"></div>
+      <div id="panel-admin" hidden>
+        <div class="cabecera-admin">
+          <div><p class="etiqueta">ADMINISTRACIÓN</p><h1>Panel de control</h1></div>
+          <button id="cerrar-sesion" class="secundario-boton" type="button">Cerrar sesión</button>
+        </div>
+        <div class="pestanas-admin" role="tablist" aria-label="Administración">
+          <button id="tab-pedidos" class="activo" role="tab" aria-selected="true">Pedidos</button>
+          <button id="tab-productos" role="tab" aria-selected="false">Productos</button>
+        </div>
+        <section class="resumen-admin" aria-label="Resumen del día">
+          <article><span>Pedidos hoy</span><strong id="resumen-pedidos">0</strong></article>
+          <article><span>Ventas hoy</span><strong id="resumen-ventas">Q 0.00</strong></article>
+          <article><span>Pendientes</span><strong id="resumen-pendientes">0</strong></article>
+          <article><span>En preparación</span><strong id="resumen-preparacion">0</strong></article>
+          <article><span>Stock bajo</span><strong id="resumen-stock">0</strong></article>
+        </section>
+        <section id="admin-pedidos" class="seccion-admin">
+          <div class="titulo-seccion">
+            <div><h2>Pedidos recibidos</h2><p class="secundario">Consulta los detalles y actualiza su estado.</p></div>
+            <button id="actualizar" class="secundario-boton" type="button">Actualizar lista</button>
+          </div>
+          <div class="filtros-pedidos">
+            <div><label for="filtro-estado">Estado</label><select id="filtro-estado"><option value="">Todos</option><option value="pendiente">Pendiente</option><option value="en preparación">En preparación</option><option value="entregado">Entregado</option></select></div>
+            <div><label for="filtro-fecha">Fecha</label><input id="filtro-fecha" type="date"></div>
+            <button id="limpiar-filtros" class="secundario-boton" type="button">Limpiar filtros</button>
+          </div>
+          <div id="pedidos" class="lista-pedidos"></div>
+        </section>
+        <section id="admin-productos" class="seccion-admin" hidden>
+          <div class="titulo-seccion"><div><h2>Productos del menú</h2><p class="secundario">Crea, edita, activa o retira productos.</p></div></div>
+          <div class="gestion-productos">
+            <form id="form-producto" class="form-producto">
+              <h2 id="titulo-form-producto">Nuevo producto</h2>
+              <input id="producto-id" type="hidden">
+              <label for="producto-nombre">Nombre</label>
+              <input id="producto-nombre" maxlength="100" required>
+              <label for="producto-descripcion">Descripción</label>
+              <textarea id="producto-descripcion" maxlength="255" rows="3" required></textarea>
+              <div class="fila-formulario tres-columnas">
+                <div><label for="producto-categoria">Categoría</label><input id="producto-categoria" maxlength="50" required></div>
+                <div><label for="producto-precio">Precio (Q)</label><input id="producto-precio" type="number" min="0.01" max="99999999.99" step="0.01" required></div>
+                <div><label for="producto-stock">Existencias</label><input id="producto-stock" type="number" min="0" max="99999" step="1" value="0" required></div>
+              </div>
+              <label>Imagen del producto <span class="secundario">(opcional)</span></label>
+              <div id="zona-imagen" class="zona-imagen" tabindex="0" role="button" aria-label="Arrastra una imagen o selecciónala">
+                <input id="producto-archivo" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+                <img id="vista-imagen" alt="Vista previa" hidden>
+                <div id="indicacion-imagen"><strong>Arrastra una imagen aquí</strong><span>JPG, PNG o WebP · máximo 5 MB</span></div>
+                <button id="elegir-imagen" class="secundario-boton" type="button">Elegir imagen</button>
+              </div>
+              <label for="producto-imagen">O pega un enlace</label>
+              <input id="producto-imagen" maxlength="255" placeholder="https://... o /images/menu/...">
+              <label id="campo-activo" class="opcion-activa" hidden><input id="producto-activo" type="checkbox" checked> Producto visible en el menú</label>
+              <div class="acciones-formulario">
+                <button id="guardar-producto" class="principal" type="submit">Guardar producto</button>
+                <button id="cancelar-edicion" class="secundario-boton" type="button" hidden>Cancelar</button>
+              </div>
+            </form>
+            <div id="productos-admin" class="productos-admin"></div>
+          </div>
+        </section>
+      </div>
     </section>
   </main>
   <footer>La Mesa · Proyecto académico de pedidos de comida</footer>

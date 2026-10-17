@@ -5,6 +5,7 @@ const vaciar = document.querySelector('#vaciar');
 const busqueda = document.querySelector('#busqueda');
 let platos = [];
 let carrito = [];
+const imagenes = ['hamburguesa.png', 'pizza.png', 'tacos.png', 'ensalada.png', 'limonada.png', 'brownie.png'];
 
 const dinero = valor => `Q ${Number(valor).toFixed(2)}`;
 
@@ -24,11 +25,15 @@ function mostrarMenu() {
   if (!resultados.length) menu.append(elemento('p', 'No se encontraron platos.'));
   resultados.forEach(plato => {
     const tarjeta = elemento('article', undefined, 'plato');
+    const imagen = elemento('img', undefined, 'imagen-plato');
+    imagen.src = `/images/menu/${imagenes[plato.id - 1] || 'hamburguesa.png'}`;
+    imagen.alt = plato.nombre;
+    imagen.loading = 'lazy';
     const pie = elemento('div', undefined, 'pie');
     const agregar = elemento('button', '+ Agregar');
     agregar.addEventListener('click', () => cambiarCantidad(plato.id, 1));
     pie.append(elemento('strong', dinero(plato.precio)), agregar);
-    tarjeta.append(elemento('span', plato.categoria, 'categoria'), elemento('h2', plato.nombre), elemento('p', plato.descripcion), pie);
+    tarjeta.append(imagen, elemento('span', plato.categoria, 'categoria'), elemento('h2', plato.nombre), elemento('p', plato.descripcion), pie);
     menu.append(tarjeta);
   });
 }

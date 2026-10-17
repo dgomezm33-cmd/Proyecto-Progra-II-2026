@@ -126,6 +126,14 @@ input, select {
   border-radius: 14px;
 }
 
+.imagen-plato {
+  width: calc(100% + 48px);
+  height: 210px;
+  margin: -24px -24px 20px;
+  object-fit: cover;
+  border-radius: 14px 14px 0 0;
+}
+
 .plato .numero {
   color: #71805a;
   font: italic 24px Georgia, serif;

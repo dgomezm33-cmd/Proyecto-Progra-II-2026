@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json({ limit: '50kb' }));
 app.use('/api', routes);
 app.use('/api', (req, res) => res.status(404).json({ mensaje: 'Ruta no encontrada.' }));
+app.use('/images', express.static(path.join(__dirname, '../../public/images')));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use((error, req, res, next) => {
   if (error.type === 'entity.parse.failed') {

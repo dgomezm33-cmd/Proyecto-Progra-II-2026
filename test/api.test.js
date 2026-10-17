@@ -5,6 +5,7 @@ const db = require('../src/config/db');
 
 let servidor;
 let baseUrl;
+let adminHeaders;
 const metodosOriginales = {
   query: db.query,
   execute: db.execute,
@@ -19,6 +20,12 @@ before(async () => {
       resolve();
     });
   });
+  const { datos } = await solicitar('/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ usuario: 'admin', contrasena: 'admin123' })
+  });
+  adminHeaders = { Authorization: `Bearer ${datos.token}` };
 });
 
 afterEach(() => Object.assign(db, metodosOriginales));
@@ -92,11 +99,15 @@ test('crea el pedido con precios de la base dentro de una transacción', async (
     execute: async (sql, parametros) => {
       if (sql.includes('FROM platos')) {
         eventos.push('precios');
-        return [[{ id: 1, precio: '35.00' }]];
+        return [[{ id: 1, precio: '35.00', stock: 10 }]];
       }
       if (sql.startsWith('INSERT INTO pedidos')) {
         eventos.push(['pedido', parametros]);
         return [{ insertId: 17 }];
+      }
+      if (sql.startsWith('UPDATE platos SET stock')) {
+        eventos.push(['stock', parametros]);
+        return [{ affectedRows: 1 }];
       }
       eventos.push(['detalle', parametros]);
       return [{}];
@@ -122,6 +133,7 @@ test('crea el pedido con precios de la base dentro de una transacción', async (
     'precios',
     ['pedido', ['Ana', 'Sin cebolla', '70.00']],
     ['detalle', [17, 1, 2, '35.00']],
+    ['stock', [2, 1]],
     'commit',
     'release'
   ]);
@@ -145,13 +157,46 @@ test('revierte la transacción si un plato no está disponible', async () => {
   assert.deepEqual(eventos, ['begin', 'rollback', 'release']);
 });
 
+test('rechaza un pedido que supera las existencias disponibles', async () => {
+  const eventos = [];
+  db.getConnection = async () => ({
+    beginTransaction: async () => eventos.push('begin'),
+    execute: async sql => sql.includes('FROM platos') ? [[{ id: 1, precio: '35.00', stock: 1 }]] : [{}],
+    rollback: async () => eventos.push('rollback'),
+    release: () => eventos.push('release')
+  });
+  const { respuesta, datos } = await solicitar('/api/pedidos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cliente: 'Ana', productos: [{ plato_id: 1, cantidad: 2 }] })
+  });
+  assert.equal(respuesta.status, 400);
+  assert.match(datos.mensaje, /existencias/);
+  assert.deepEqual(eventos, ['begin', 'rollback', 'release']);
+});
+
+test('filtra pedidos por estado y fecha', async () => {
+  db.execute = async (sql, parametros) => {
+    assert.match(sql, /estado = \?/);
+    assert.match(sql, /DATE\(fecha\) = \?/);
+    assert.deepEqual(parametros, ['pendiente', '2026-10-17']);
+    return [[]];
+  };
+  db.query = async () => [[]];
+  const { respuesta, datos } = await solicitar('/api/pedidos?estado=pendiente&fecha=2026-10-17', {
+    headers: adminHeaders
+  });
+  assert.equal(respuesta.status, 200);
+  assert.deepEqual(datos, []);
+});
+
 test('rechaza estados de pedido desconocidos', async () => {
   db.execute = async () => {
     throw new Error('No debería ejecutar una consulta');
   };
   const { respuesta, datos } = await solicitar('/api/pedidos/1/estado', {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...adminHeaders },
     body: JSON.stringify({ estado: 'cancelado' })
   });
   assert.equal(respuesta.status, 400);
@@ -166,7 +211,7 @@ test('actualiza un estado permitido', async () => {
   };
   const { respuesta, datos } = await solicitar('/api/pedidos/12/estado', {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...adminHeaders },
     body: JSON.stringify({ estado: 'entregado' })
   });
   assert.equal(respuesta.status, 200);
@@ -177,7 +222,7 @@ test('responde 404 al actualizar un pedido inexistente', async () => {
   db.execute = async () => [{ affectedRows: 0 }];
   const { respuesta, datos } = await solicitar('/api/pedidos/404/estado', {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...adminHeaders },
     body: JSON.stringify({ estado: 'pendiente' })
   });
   assert.equal(respuesta.status, 404);

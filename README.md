@@ -9,6 +9,9 @@ Proyecto de tercer ciclo con Node.js, Express, MySQL y HTML, CSS y JavaScript si
 - Registrar un pedido con nombre e indicaciones opcionales.
 - Consultar pedidos con sus detalles, fecha y total.
 - Cambiar el estado a pendiente, en preparación o entregado.
+- Iniciar sesión en un panel administrativo protegido.
+- Crear, editar, retirar y reactivar productos con control de existencias.
+- Consultar estadísticas del día y filtrar pedidos por estado o fecha.
 
 Es una demostración local sin cuentas, pagos ni entregas a domicilio. La vista de pedidos está disponible para cualquier persona que acceda a la aplicación. El carrito vive en memoria y se vacía al recargar; los pedidos se guardan en MySQL.
 
@@ -54,6 +57,11 @@ Al registrar un pedido, el servidor valida cantidades y consulta los precios rea
 | GET | `/api/pedidos` | Listar pedidos con detalles |
 | POST | `/api/pedidos` | Registrar un pedido |
 | PATCH | `/api/pedidos/:id/estado` | Cambiar el estado |
+| GET | `/api/admin/resumen` | Consultar estadísticas del día |
+| GET/POST | `/api/admin/platos` | Listar o crear productos |
+| POST | `/api/admin/imagenes` | Subir una imagen JPG, PNG o WebP |
+| PUT/DELETE | `/api/admin/platos/:id` | Editar o retirar productos |
+| PATCH | `/api/admin/platos/:id/reactivar` | Reactivar un producto retirado |
 
 Cuerpo de ejemplo para POST (cabecera `Content-Type: application/json`):
 
